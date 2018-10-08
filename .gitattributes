@@ -20,14 +20,11 @@ webroot/images/config-button.png -text
 webroot/images/favicon.png -text
 webroot/images/wacc.png -text
 webroot/images/wacc.svg -text
-webroot/index.html -text
-webroot/index.php -text
 webroot/js/WACCClient.js -text
 webroot/js/WACCTerminal.js -text
 webroot/js/WACCTerminal.ts -text
 webroot/js/jquery-1.7.1.min.js -text
 webroot/js/term_styles.css -text
-webroot/js/termlib.js -text
 webroot/templates/overlay.html -text
 webroot/templates/terminal.html -text
 webroot/we.bconfig -text
