@@ -1,5 +1,5 @@
 {
-    "name": "nxsys/application.aether",
+    "name": "nxsys/applications.aether-term",
     "description": "Aether.sh: Cloud Console",
     "keywords": ["distributed admin tool", "webshell", "webterminal", "shell", "terminal"],
     "homepage": "http://nxsys.org/spaces/aether",
@@ -13,7 +13,7 @@
         "issues": "https://nxsys.assembla.com/spaces/aether/tickets",
         "forum": "https://nxsys.assembla.com/spaces/aether/messages",
         "wiki": "https://nxsys.assembla.com/spaces/aether/wiki",
-        "source": "https://nxsys.assembla.com/code/onx/subversion-3/repo",
+        "source": "https://nxsys.assembla.com/spaces/aether/subversion/source",
         "rss": "https://nxsys.assembla.com/spaces/aether/stream.rss"
      },
     "authors":
@@ -27,26 +27,15 @@
     ],
     "config":
     {
-        "optimize-autoloader": true
-    },
-    "autoload":
-    {
-        "psr-4": { "": "src/" }
     },
     "require":
     {
-        "php": "^7.2",
-        "ext-openssl": "^7.2",
-        "ext-pthreads": "~3.0",
-        "nxsys/framework.aether": "*@dev"
+        "php": "^7.2"
     },
     "require-dev":
     {
-
+        "nxsys/toolkits.aether-sdk": "*@dev"
     },
     "minimum-stability": "dev",
-    "prefer-stable": true,
-    "repositories": [
-        {"type": "path", "url": "./src/Aether"}
-    ]
+    "prefer-stable": true
 }
