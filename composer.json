@@ -34,7 +34,6 @@
     },
     "require-dev":
     {
-        "nxsys/toolkits.aether-sdk": "*@dev"
     },
     "minimum-stability": "dev",
     "prefer-stable": true

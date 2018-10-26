@@ -15,7 +15,7 @@
 # @copyright (c) 2013 F2 Developments, Inc. All rights reserved.]
 #
 ============================================================================ -->
-<project name="FooBar" default="dist">
+<project name="FooBar" default="build">
 
     <!-- ============================================  -->
     <!-- Target: prepare                               -->
@@ -23,24 +23,18 @@
     <target name="prepare">
         <echo msg="Making directory ./build" />
         <mkdir dir="./build" />
-        <echo msg="Making directory ./docs" />
-        <mkdir dir="./build" />        
     </target>
 
     <!-- ============================================  -->
     <!-- Target: build                                 -->
     <!-- ============================================  -->
     <target name="build" depends="prepare">
-        <echo msg="Copying files to build directory..." />
-
-        <echo msg="Copying ./about.php to ./build directory..." />
-        <copy file="./about.php" tofile="./build/about.php" />
-
-        <echo msg="Copying ./browsers.php to ./build directory..." />
-        <copy file="./browsers.php" tofile="./build/browsers.php" />
-
-        <echo msg="Copying ./contact.php to ./build directory..." />
-        <copy file="./contact.php" tofile="./build/contact.php" />
+        <echo msg="Building SASS to stylesheet..."/>
+		<exec command="sassc -l -m src-webui/scss/aether.scss webroot/css/aether.css"
+			  passthru="true"/>
+        <echo msg="Building TS to JS..."/>
+		<exec command="tsc --build src-webui/ts"
+			  passthru="true"/>
     </target>
 
     <!-- ============================================  -->

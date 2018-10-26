@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en-us">
+<head>
+	<!-- this file may be served as application/xhtml+xml -->
+	<meta charset="UTF-8"/>
+	<title>Aether.sh - Terminal</title>
+	<meta name="application-name" content="Aether.sh"/>
+	<meta name="theme-color" content="#0080ff"/>
+	<link rel="stylesheet" href="css/aether.css"/>
+	<!-- <meta http-equiv="Content-Security-Policy" content="script-src 'self'; object-src 'none'"> -->
+</head>
+<body>
+	<script type="text/javascript">App.onPageLoadBegin();</script>
+	<div class="aesh-container">
+		<div class="aesh-sbpane">{{ message }}</div>
+		<div class="aesh-inputbox"></div>
+		<div class="aesh-ct-submit"></div>
+	</div>
+	<script type="text/javascript">App.onPageLoadEnd();</script>
+	<script src="js/vendors/systemjs/system.js" type="application/javascript"></script>
+	<script src="js/vendors/vue/vue.js" type="application/javascript"></script>
+	<script src="js/Aether-TermApp.js" type="application/javascript"></script>
+	<script type="text/javascript">
+		SystemJS.config({
+		   baseURL: 'js'
+		  });
+		SystemJS.defaultJSExtensions = true;
+	</script>
+	<script type="text/javascript">var App=new Aether.TermApp;</script>
+</body>
+</html>

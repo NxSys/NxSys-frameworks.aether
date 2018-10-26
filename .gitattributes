@@ -6,7 +6,11 @@
 /build.xml -text
 /composer.json -text
 /sonar-project.properties -text
+src-webui/scss/aether.scss -text
+src-webui/ts/Aether-TermApp.ts -text
+src-webui/ts/tsconfig.json -text
 webroot/cmd-form.html -text
+webroot/config.js -text
 webroot/css/Share-Tech.ttf -text
 webroot/css/Share-TechExp.ttf -text
 webroot/css/Share-TechMono.ttf -text
@@ -25,6 +29,7 @@ webroot/js/WACCTerminal.js -text
 webroot/js/WACCTerminal.ts -text
 webroot/js/jquery-1.7.1.min.js -text
 webroot/js/term_styles.css -text
+webroot/sh.xhtml -text
 webroot/templates/overlay.html -text
 webroot/templates/terminal.html -text
 webroot/we.bconfig -text

@@ -1,0 +1,55 @@
+/**
+* Typescript Config File
+* $Id$
+*
+* Configuration file for typescript from Atlas
+*
+* @link http://nxsys.org/spaces/atlas-code-explorer
+* @package ACE\UI
+* @author Chris R. Feamster <cfeamster@nexussystemsinc.com>
+* @author $LastChangedBy$
+*
+* @version $Revision$
+*
+* @copyright Copyright 2016 Nexus Systems Inc.
+* @license http://nxsys.org/spaces/atlas-code-explorer/wiki/license.html
+* Please see the license.txt file or the url above for full copyright and
+* license terms.
+*/
+{
+	"include":
+	[
+		"*"
+	],
+	"compilerOptions":
+	{
+		//Please change this section as your project requires
+		"rootDir": ".",
+		"outDir": "../../webroot/js",
+		"declarationDir": "../../webroot/js/types",
+		"baseUrl": "./modules",
+		"lib":
+			["es5", "dom",
+			 "es2015.symbol.wellknown"],
+		"noImplicitThis": true,		
+
+		//Please refrain from changing below without due consideration
+		"declaration": true,
+		"sourceMap": true,
+		"module": "system",
+		"target": "es5",
+		"noFallthroughCasesInSwitch": true,
+		"traceResolution": true,
+
+		// The following are considered team/org policy, please do not disable
+		"forceConsistentCasingInFileNames": true,
+		"listFiles": true,
+		"newLine": "CRLF",
+		"noEmitOnError": false,
+		"noImplicitAny": true,
+		"noImplicitReturns": true,
+		"noUnusedLocals": false,
+		"noUnusedParameters": false,
+		"removeComments": true
+	}
+}
