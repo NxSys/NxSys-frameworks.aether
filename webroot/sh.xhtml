@@ -27,5 +27,18 @@
 		SystemJS.defaultJSExtensions = true;
 	</script>
 	<script type="text/javascript">var App=new Aether.TermApp;</script>
+	<script type="text/javascript">
+		announce = (function () {
+			var ws = new Wampy('ws://10.100.0.6:9090', { realm: 'Test' });
+			setTimeout(function () {
+				console.log(ws.getSessionId());
+				ws.publish("sh.aether.announce", {"session":ws.getSessionId()});
+				ws.subscribe("sh.aether.term." + ws.getSessionId(), function (dataArr, dataObj) { console.log(dataArr); console.log(dataObj); });
+			}, 1000);
+			return ws;});
+
+		a = announce();
+		a.publish('sh.aether.acn.' + a.getSessionId(), {"channel":"test", "event":"foo", "session":a.getSessionId(), "data":{"foo":"bar"}});
+	</script>
 </body>
 </html>
