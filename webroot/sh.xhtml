@@ -27,18 +27,55 @@
 		SystemJS.defaultJSExtensions = true;
 	</script>
 	<script type="text/javascript">var App=new Aether.TermApp;</script>
+	<script src="js/vendors/wampy/wampy.js"></script>
 	<script type="text/javascript">
-		announce = (function () {
-			var ws = new Wampy('ws://10.100.0.6:9090', { realm: 'Test' });
-			setTimeout(function () {
-				console.log(ws.getSessionId());
-				ws.publish("sh.aether.announce", {"session":ws.getSessionId()});
-				ws.subscribe("sh.aether.term." + ws.getSessionId(), function (dataArr, dataObj) { console.log(dataArr); console.log(dataObj); });
-			}, 1000);
-			return ws;});
+	// <![CDATA[
+		function uuidv4() {
+				return ([1e7]+-1e3+-4e3+-8e3+-1e11).replace(/[018]/g, c =>
+					(c ^ crypto.getRandomValues(new Uint8Array(1))[0] & 15 >> c / 4).toString(16)
+				)
+			};
 
-		a = announce();
-		a.publish('sh.aether.acn.' + a.getSessionId(), {"channel":"test", "event":"foo", "session":a.getSessionId(), "data":{"foo":"bar"}});
+	    function eventHandler (dataObj) {
+        	event = dataObj.argsDict;
+	        if (event.channel == "sys")
+    	    {
+        	    if (event.event == "output")
+            	{
+	                console.log(event.data.Output);
+    	        }
+        	}
+
+    	}
+
+	    function announce(ws = null) {
+    	    if (ws == null)
+        	{
+            	ws = new Wampy('ws://10.100.0.6:9090', { realm: 'Test' });
+	        }
+    	    setTimeout(function () {
+        	    console.log(ws.getSessionId());
+            	ws.publish("sh.aether.announce", {"session":ws.getSessionId()});
+	            ws.subscribe("sh.aether.term." + ws.getSessionId(), eventHandler);
+    	    }, 1000);
+        	return ws;
+	    }
+
+	    function execute(conn, command)
+    	{
+        	conn.publish('sh.aether.acn.' + conn.getSessionId(), 
+            	{
+                	"channel":"terminal.command", 
+	                "event":"execute", "session":conn.getSessionId(), 
+    	            "data":{
+        	            "SessionId": conn.getSessionId(), 
+            	        "ExecutionId": uuidv4(), 
+                	    "Command": command
+	                }
+    	        }
+        	);
+	    }
+	//]]>
 	</script>
 </body>
 </html>
