@@ -8,7 +8,7 @@ import Vue from 'types/vue/vue'
 // import {CodeMirror} from './types/codemirror/codemirror';
 
 
-namespace Aether
+export namespace Aether
 {
 	export class TermApp
 	{
@@ -126,3 +126,6 @@ interface TerminalOptions
 	dimensions: any[];
 	nodeData: any[];
 }
+
+declare const window: any;
+window.Aesh = Aether.TermApp;

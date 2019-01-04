@@ -8,15 +8,16 @@
 /sonar-project.properties -text
 src-webui/scss/aether.scss -text
 src-webui/ts/Aether-TermApp.ts -text
+src-webui/ts/config-reference.js -text
 src-webui/ts/tsconfig.json -text
 webroot/cmd-form.html -text
-webroot/config.js -text
 webroot/css/Share-Tech.ttf -text
 webroot/css/Share-TechExp.ttf -text
 webroot/css/Share-TechMono.ttf -text
 webroot/css/Share-TechMonoExp.ttf -text
 webroot/css/fullpage.css -text
 webroot/css/wacc.css -text
+webroot/favicon.ico -text
 webroot/ht.access -text
 webroot/images/Share-TechMono.ttf -text
 webroot/images/Share-TechMonoExp.ttf -text
