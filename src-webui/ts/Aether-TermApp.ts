@@ -1,9 +1,8 @@
 
 
 import Vue from 'types/vue/vue'
-// <reference path="types/systemjs/systemjs.d.ts" />
+import Wampy from "types/wampy/index";
 // <reference path="types/jquery/jquery.d.ts" />
-// <reference path="types/foundation-sites/Foundation-Sites.d.ts" />
 
 // import {CodeMirror} from './types/codemirror/codemirror';
 
@@ -12,24 +11,39 @@ export namespace Aether
 {
 	export class TermApp
 	{
-		//public EventMgr;
-		private oExplorationMap: ExplorationMap;
+		public EventMgr: EventManager;
 		//TerminalOptions
+        private oUserProvidedConfig: TerminalOptions;
+        public oCurrentConsoleSettings: ConsoleSettings;
+        public static isDebugging: boolean;
 		public constructor()
 		{
 			//basic configuration of this app's modules
-			this.oExplorationMap=new ExplorationMap;
+            this.oUserProvidedConfig=new TerminalOptions(oUserConfigData);
+            // this.isDebugging=this.oUserProvidedConfig['debug'];
+            TermApp.isDebugging=true;
 		}
+        /**
+         * For backend functionality only, do not affect the UI\DOM,
+         * it's likely not ready yet!
+         */
 		public onPageLoadBegin()
 		{
 			//@todo: init aptv dom tree
 			console.log('onPageLoadBegin_in');
+            //throw up loading screen
 			console.log('onPageLoadBegin_out');
 		}
-		public onPageLoadEnd()
+ 
+        /**
+         * Ok lets make sure the user can use the Console
+         * @param oDomEvent
+         */
+		public onPageLoadEnd(oDomEvent)
 		{
 			console.log('onPageLoadEnd_in');
-
+            console.log(oDomEvent);
+            //take down loading screen
 
 			console.log('onPageLoadEnd_out');
 		}
@@ -62,13 +76,13 @@ export namespace Aether
 				if (oXHReq.status >= 200 && oXHReq.status < 400)
 				{
 					returnValue=oXHReq.response;
-					oRpcCallParams.success(JSON.parse(oXHReq.response));
+					// oRpcCallParams.success(JSON.parse(oXHReq.response));
 				}
 				else
 				{
 					if(hFailFunction)
 					{
-						oRpcCallParams.error(oXHReq);
+						//oRpcCallParams.error(oXHReq);
 					}
 					else
 					{
@@ -93,39 +107,69 @@ export namespace Aether
 		}
 
 		//--- Appland
-		/**
-		 * getExplorationMap
-		 * returns ExplorationMap component
-		 */
-		public getExplorationMap()
-		{
-			return this.oExplorationMap;
-		}
-		/**
-		 * startExplorationMap
-		 */
-		public startExplorationMap(sSelector?: string, oOptions?: any)
-		{
-		}
 	}
 
-	export class ExplorationMap
-	{
-		/**
-		 * constructor
-		 */
-		public constructor()
-		{}
+    export class EventManager
+    {
+        public static readonly TERMINAL_CHANNEL=0;
+        public static readonly CONSOLE_CHANNEL =1;
+        public aEventChannels: Array<EventTarget>;
+ 
+        constructor()
+        {
+            this.aEventChannels=[]; //wat about that 0...?
+            this.aEventChannels[EventManager.TERMINAL_CHANNEL]=new EventTarget;
+        }
+ 
+        /**
+         * addEvent
+         */
+        public addEvent(iChannel: number, oEvent: CustomEvent)
+        {
+            if (TermApp.isDebugging)
+            {
+                console.log(CustomEvent+' emitted '+CustomEvent.Event.type+' on channel '+iChannel);
+                console.log(CustomEvent);
+            }
+            this.aEventChannels[iChannel].dispatchEvent(oEvent);
+        }
 
-
-	}
+		/*
+         * addHandler
+         *
+         * @param iChannel
+         * @param sEventName
+         * @param hCallable
+         * @param options
+         */
+        public addHandler(iChannel: number, sEventName: string, hCallable: EventListener|EventListenerObject, options?: object): void
+        {
+            if (TermApp.isDebugging)
+            {
+                monitorEvents(this.aEventChannels[iChannel], sEventName);
+            }
+            return this.aEventChannels[iChannel].addEventListener(sEventName, hCallable, options);
+        }
+    }
 }
-
 interface TerminalOptions
 {
-	dimensions: any[];
-	nodeData: any[];
+    readonly sServerUrl: string;
+ 
+    constructor(sJsonConfigData: object)
+    {
+        //unserialize and populate
+        this.assimilate(sJsonConfigData);
+    }
+ 
+    private assimilate(sJsonConfigData: object)
+    {
+        console.log(sJsonConfigData);
+    }
 }
 
+
 declare const window: any;
-window.Aesh = Aether.TermApp;
+window.Aesh = Aether;
+//------------------------------------
+function monitorEvents(EventTarget: EventTarget, string: string) {}

@@ -50,6 +50,7 @@
 		"noImplicitReturns": true,
 		"noUnusedLocals": false,
 		"noUnusedParameters": false,
-		"removeComments": true
+		"removeComments": true,
+		"strictNullChecks": true
 	}
 }

@@ -19,7 +19,6 @@
 		var App; //:Aether.TermApp
 		System.import('./js/Aether-TermApp.js').then(function (AeshModule) 
 		{
-			console.log(AeshModule.Aether);
 			App=new AeshModule.Aether.TermApp(aTermConfig);
 			App.onPageLoadBegin();		
 			window.addEventListener("load", function (ev) { App.onPageLoadEnd(ev); });
@@ -33,11 +32,6 @@
 	</div>
 	<script type="text/javascript">
 	// <![CDATA[
-		function uuidv4() {
-				return ([1e7]+-1e3+-4e3+-8e3+-1e11).replace(/[018]/g, c =>
-					(c ^ crypto.getRandomValues(new Uint8Array(1))[0] & 15 >> c / 4).toString(16)
-				)
-			};
 
 	    function eventHandler (dataObj) {
         	event = dataObj.argsDict;
