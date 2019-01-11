@@ -9,13 +9,18 @@
 	<link rel="stylesheet" href="css/aether.css"/>
 	<!-- <meta http-equiv="Content-Security-Policy" content="script-src 'self'; object-src 'none'"> -->
 	<script src="js/vendors/systemjs/system.js"></script>
-	<script type="application/javascript">var exports = {};</script>
-	<script src="js/vendors/wampy/wampy.js"></script>
+	<script src="js/vendors/wampy/wampy.min.js"></script>
 	<script src="js/vendors/vue/vue.js"></script>
 </head>
 <body>
 	<script type="text/javascript">
-		var aTermConfig=[];
+		var aTermConfig=[
+			"site.name": "Aether.sh System Shell",
+			"site.endpoint": "ws://10.100.0.6:9090", //should default to baseuri/shapi : 
+			"site.endpoint.realm": "Test",
+			"site.theme": "aesh-amber",
+			"site.logo":  "://images/wacc.svg",
+		];
 		var App; //:Aether.TermApp
 		System.import('./js/Aether-TermApp.js').then(function (AeshModule) 
 		{
@@ -32,18 +37,6 @@
 	</div>
 	<script type="text/javascript">
 	// <![CDATA[
-
-	    function eventHandler (dataObj) {
-        	event = dataObj.argsDict;
-	        if (event.channel == "sys")
-    	    {
-        	    if (event.event == "output")
-            	{
-	                console.log(event.data.Output);
-    	        }
-        	}
-
-    	}
 
 	    function announce(ws = null) {
     	    if (ws == null)

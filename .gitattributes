@@ -8,8 +8,10 @@
 /sonar-project.properties -text
 src-webui/scss/aether.scss -text
 src-webui/ts/Aether-TermApp.ts -text
+src-webui/ts/ConsoleControl.ts -text
 src-webui/ts/config-reference.js -text
 src-webui/ts/tsconfig.json -text
+src-webui/ts/types/wampy/index.d.ts -text
 webroot/cmd-form.html -text
 webroot/css/Share-Tech.ttf -text
 webroot/css/Share-TechExp.ttf -text
@@ -30,6 +32,7 @@ webroot/js/WACCTerminal.js -text
 webroot/js/WACCTerminal.ts -text
 webroot/js/jquery-1.7.1.min.js -text
 webroot/js/term_styles.css -text
+webroot/js/vendors/firebug-lite_1.2.js -text
 webroot/sh.xhtml -text
 webroot/templates/overlay.html -text
 webroot/templates/terminal.html -text

@@ -1,27 +1,39 @@
 
 
-import Vue from 'types/vue/vue'
-import Wampy from "types/wampy/index";
-// <reference path="types/jquery/jquery.d.ts" />
 
+//Types
+// / <reference types="types/wampy/index.d.ts" />
+
+//Includes
+/// <reference path="ConsoleControl.ts" />
+
+
+import Vue from 'types/vue/vue'
 // import {CodeMirror} from './types/codemirror/codemirror';
+
 
 
 export namespace Aether
 {
 	export class TermApp
 	{
-		public EventMgr: EventManager;
+		public static EventMgr: EventManager;
 		//TerminalOptions
         private oUserProvidedConfig: TerminalOptions;
         public oCurrentConsoleSettings: ConsoleSettings;
         public static isDebugging: boolean;
-		public constructor()
+        protected ServerHdlr: ServerHandler; 
+
+		public constructor(aUserConfigData: { [key: string]: string })
 		{
+			// new ConsoleControl;
+			// ConsoleControl.f('xxxx');
 			//basic configuration of this app's modules
-            this.oUserProvidedConfig=new TerminalOptions(oUserConfigData);
+            this.oUserProvidedConfig=new TerminalOptions(aUserConfigData);
             // this.isDebugging=this.oUserProvidedConfig['debug'];
             TermApp.isDebugging=true;
+            TermApp.EventMgr=new EventManager;
+            this.ServerHdlr=new ServerHandler;
 		}
         /**
          * For backend functionality only, do not affect the UI\DOM,
@@ -32,6 +44,7 @@ export namespace Aether
 			//@todo: init aptv dom tree
 			console.log('onPageLoadBegin_in');
             //throw up loading screen
+            this.connect();
 			console.log('onPageLoadBegin_out');
 		}
  
@@ -39,7 +52,7 @@ export namespace Aether
          * Ok lets make sure the user can use the Console
          * @param oDomEvent
          */
-		public onPageLoadEnd(oDomEvent)
+		public onPageLoadEnd(oDomEvent: Event)
 		{
 			console.log('onPageLoadEnd_in');
             console.log(oDomEvent);
@@ -90,7 +103,8 @@ export namespace Aether
 					}
 				}
 			}
-			oXHReq.onerror=hFailFunction;
+			// Type 'undefined' is not assignable to type '((this: XMLHttpRequest, ev: ProgressEvent) => any) | null'.
+			// oXHReq.onerror=hFailFunction;
 			try
 			{
 				// $.ajax(oRpcCallParams);
@@ -106,7 +120,35 @@ export namespace Aether
 			return returnValue;
 		}
 
+		public log(sMsg: string)
+		{
+			//use status line
+		}
+
 		//--- Appland
+
+		public connect()
+		{
+			this.ServerHdlr.open(this.oUserProvidedConfig.sServerUrl, this.oUserProvidedConfig.sRealm);
+		}
+
+		protected sendMessage(sChannelName: string, sEventName: string, aData: Array<any>)
+		{
+
+		}
+	}
+
+	class ServerHandler
+	{
+		public static readonly TOPIC_PREFIX='sh.aether.';
+		// private static oAcnWsConnection: Wampy.Wampy;
+		public open(sServerUrl: string, sRealm: string)
+		{
+			// ServerHandler.oAcnWsConnection=new Wampy(sServerUrl, {
+			// 	'realm': sRealm,
+			// 	'onError': () => {TermApp.EventMgr.addEvent(EventManager.TERMINAL_CHANNEL, new CustomEvent('GenericWampyError'));}
+			// 	});
+		}
 	}
 
     export class EventManager
@@ -128,8 +170,8 @@ export namespace Aether
         {
             if (TermApp.isDebugging)
             {
-                console.log(CustomEvent+' emitted '+CustomEvent.Event.type+' on channel '+iChannel);
-                console.log(CustomEvent);
+                console.log(oEvent+' emitted '+oEvent.type+' on channel '+iChannel);
+                console.log(oEvent);
             }
             this.aEventChannels[iChannel].dispatchEvent(oEvent);
         }
@@ -152,22 +194,28 @@ export namespace Aether
         }
     }
 }
-interface TerminalOptions
+
+export class TerminalOptions
 {
-    readonly sServerUrl: string;
+     sServerUrl: string;
+     sRealm: string;
  
-    constructor(sJsonConfigData: object)
+    constructor(sJsonConfigData: { [key: string]: string })
     {
         //unserialize and populate
         this.assimilate(sJsonConfigData);
     }
  
-    private assimilate(sJsonConfigData: object)
+    private assimilate(sJsonConfigData: { [key: string]: string })
     {
         console.log(sJsonConfigData);
+        this.sServerUrl=sJsonConfigData['site.endpoint'];
+        this.sRealm=sJsonConfigData['site.endpoint.realm'];
     }
 }
 
+interface ConsoleSettings
+{}
 
 declare const window: any;
 window.Aesh = Aether;
