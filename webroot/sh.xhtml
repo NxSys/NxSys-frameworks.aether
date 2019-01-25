@@ -24,7 +24,7 @@
 		var App; //:Aether.TermApp
 		System.import('./js/Aether-TermApp.js').then(function (AeshModule) 
 		{
-			App=new AeshModule.Aether.TermApp(aTermConfig);
+			let App=new AeshModule.TermApp(aTermConfig);
 			App.onPageLoadBegin();		
 			window.addEventListener("load", function (ev) { App.onPageLoadEnd(ev); });
 		});

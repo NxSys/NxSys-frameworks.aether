@@ -1,11 +1,8 @@
 
-namespace Aether
+export class ConsoleControl
 {
-	export class ConsoleControl
+	public static f(v: any)
 	{
-		public static f(v: any)
-		{
-			console.log(v);
-		}
+		console.log(v);
 	}
 }

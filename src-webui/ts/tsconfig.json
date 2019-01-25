@@ -25,13 +25,14 @@
 	{
 		//Please change this section as your project requires
 		"rootDir": ".",
-		"outDir": "../../webroot/js",
-		"declarationDir": "../../webroot/js/types",
+		"outFile": "../../webroot/js/Aether.js",
+		"declaration": true,
+		"declarationMap": true,
 		"baseUrl": "./modules",
 		"lib":
 			["es6", "dom",
 			 "es2015.symbol.wellknown"],
-		"noImplicitThis": true,		
+		"noImplicitThis": true,
 
 		//Please refrain from changing below without due consideration
 		"declaration": true,
