@@ -14,13 +14,13 @@
 </head>
 <body>
 	<script type="text/javascript">
-		var aTermConfig=[
+		var aTermConfig={
 			"site.name": "Aether.sh System Shell",
 			"site.endpoint": "ws://10.100.0.6:9090", //should default to baseuri/shapi : 
 			"site.endpoint.realm": "Test",
 			"site.theme": "aesh-amber",
-			"site.logo":  "://images/wacc.svg",
-		];
+			"site.logo":  "://images/wacc.svg"
+		};
 		var App; //:Aether.TermApp
 		System.import('./js/Aether-TermApp.js').then(function (AeshModule) 
 		{
@@ -46,7 +46,8 @@
     	    setTimeout(function () {
         	    console.log(ws.getSessionId());
             	ws.publish("sh.aether.announce", {"session":ws.getSessionId()});
-	            ws.subscribe("sh.aether.term." + ws.getSessionId(), eventHandler);
+				ws.subscribe("sh.aether.term." + ws.getSessionId(), 
+					function(data) {App.EventMgr.addEvent(App.EventMgr.TERMINAL_CHANNEL, new CustomEvent('comm', data))});
     	    }, 1000);
         	return ws;
 	    }
@@ -59,7 +60,7 @@
 	                "event":"execute", "session":conn.getSessionId(), 
     	            "data":{
         	            "SessionId": conn.getSessionId(), 
-            	        "ExecutionId": uuidv4(), 
+            	        "ExecutionId": crypto.getRandomValues(new Uint32Array(1))[0], 
                 	    "Command": command
 	                }
     	        }
