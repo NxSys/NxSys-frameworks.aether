@@ -30,7 +30,8 @@
     },
     "require":
     {
-        "php": "^7.2"
+        "php": "^7.2",
+        "symfony/web-server-bundle": "^4.3"
     },
     "require-dev":
     {
